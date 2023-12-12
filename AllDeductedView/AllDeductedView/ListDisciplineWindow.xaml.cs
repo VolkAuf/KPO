@@ -5,15 +5,7 @@ using Microsoft.Win32;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Unity;
 
 namespace AllDeductedView
@@ -29,6 +21,7 @@ namespace AllDeductedView
         private readonly ReportLogic reportLogic;
         private readonly StudentLogic studentLogic;
         private readonly Logger logger;
+
         public ListDisciplineWindow(StudentLogic studentLogic, ReportLogic reportLogic)
         {
             this.studentLogic = studentLogic;
@@ -41,11 +34,12 @@ namespace AllDeductedView
         {
             LoadData();
         }
+
         private void LoadData()
         {
             try
             {
-                var list = studentLogic.Read( new StudentBindingModel
+                var list = studentLogic.Read(new StudentBindingModel
                 {
                     ProviderId = App.SelectProvider.Id
                 });
@@ -66,10 +60,11 @@ namespace AllDeductedView
             if (dataGridStudents.SelectedItem == null || dataGridStudents.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Студент не выбран", "Ошибка", MessageBoxButton.OK,
-                   MessageBoxImage.Error);
+                    MessageBoxImage.Error);
                 return;
             }
-            var dialog = new SaveFileDialog { Filter = "docx|*.docx" };
+
+            var dialog = new SaveFileDialog {Filter = "docx|*.docx"};
             try
             {
                 if (dialog.ShowDialog() == true)
@@ -77,15 +72,16 @@ namespace AllDeductedView
                     var list = new List<StudentViewModel>();
                     foreach (var student in dataGridStudents.SelectedItems)
                     {
-                        list.Add((StudentViewModel)student);
+                        list.Add((StudentViewModel) student);
                     }
+
                     reportLogic.SaveToWordFile(new ReportBindingModel
                     {
                         FileName = dialog.FileName,
                         Students = list,
                     });
                     MessageBox.Show("Формирование завершено", "ОК", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                        MessageBoxImage.Information);
                 }
             }
             catch (Exception ex)
@@ -100,27 +96,29 @@ namespace AllDeductedView
             if (dataGridStudents.SelectedItem == null || dataGridStudents.SelectedItems.Count == 0)
             {
                 MessageBox.Show("Студент не выбран", "Ошибка", MessageBoxButton.OK,
-                   MessageBoxImage.Error);
+                    MessageBoxImage.Error);
                 return;
             }
-            var dialog = new SaveFileDialog { Filter = "xls|*.xlsx" };
+
+            var dialog = new SaveFileDialog {Filter = "xls|*.xlsx"};
             try
             {
-                if (dialog.ShowDialog() == true)
+                if (dialog.ShowDialog() != true) 
+                    return;
+
+                var list = new List<StudentViewModel>();
+                foreach (var student in dataGridStudents.SelectedItems)
                 {
-                    var list = new List<StudentViewModel>();
-                    foreach (var student in dataGridStudents.SelectedItems)
-                    {
-                        list.Add((StudentViewModel)student);
-                    }
-                    reportLogic.SaveToExcelFile(new ReportBindingModel
-                    {
-                        FileName = dialog.FileName,
-                        Students = list,
-                    });
-                    MessageBox.Show("Формирование завершено", "ОК", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                    list.Add((StudentViewModel) student);
                 }
+
+                reportLogic.SaveToExcelFile(new ReportBindingModel
+                {
+                    FileName = dialog.FileName,
+                    Students = list,
+                });
+                MessageBox.Show("Формирование завершено", "ОК", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
             catch (Exception ex)
             {

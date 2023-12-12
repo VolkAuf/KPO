@@ -9,7 +9,6 @@
   <ItemGroup>
     <None Remove="Images\logo.bmp" />
     <None Remove="Images\LogoMain.bmp" />
-    <None Remove="Images\Logotip.jpg" />
     <None Remove="Images\Roboto-Regular.ttf" />
   </ItemGroup>
 
@@ -35,7 +34,6 @@
   <ItemGroup>
     <Resource Include="Images\logo.bmp" />
     <Resource Include="Images\LogoMain.bmp" />
-    <Resource Include="Images\Logotip.jpg" />
     <Resource Include="Images\Roboto-Regular.ttf" />
   </ItemGroup>
 

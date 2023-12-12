@@ -24,5 +24,20 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style x:Key="comboBox" TargetType="ComboBox">
+            <Setter Property="Background" Value="{StaticResource backgroundBrush}"></Setter>
+            <Setter Property="Foreground" Value="{StaticResource foregroundBrush}"></Setter>
+            <Setter Property="FontFamily" Value="{StaticResource fontFamily}"></Setter>
+            <Setter Property="Height" Value="25"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid x:Name="Help" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>

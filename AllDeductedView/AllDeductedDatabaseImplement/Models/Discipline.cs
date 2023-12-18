@@ -17,11 +17,11 @@ namespace AllDeductedDatabaseImplement.Models
         [Column("hours_count")]
         [Required]
         public int HoursCount { get; set; }
-        [Column("thread_id")]
-        public int ThreadId { get; set; }
-        public virtual Thread Thread { get; set; }
-        [Column("customer_id")]
-        public int CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
+        [Column("group_id")]
+        public int GroupId { get; set; }
+        public virtual Group Group { get; set; }
+        [Column("provider_id")]
+        public int ProviderId { get; set; }
+        public virtual Provider Provider { get; set; }
     }
 }

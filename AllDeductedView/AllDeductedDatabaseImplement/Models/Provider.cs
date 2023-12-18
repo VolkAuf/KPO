@@ -23,5 +23,11 @@ namespace AllDeductedDatabaseImplement.Models
 
         [ForeignKey("ProviderId")]
         public virtual List<StudyingStatus> StudentStatuses { get; set; }
+
+        [ForeignKey("ProviderId")]
+        public virtual List<Discipline> Disciplines { get; set; }
+
+        [ForeignKey("ProviderId")]
+        public virtual List<Group> Groups { get; set; }
     }
 }

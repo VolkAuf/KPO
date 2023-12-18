@@ -17,12 +17,12 @@ namespace AllDeductedDatabaseImplement.Models
         [Required]
         [Column("curator_name")]
         public string CuratorName { get; set; }
-        [Column("thread_id")]
-        public int ThreadId { get; set; }
-        public virtual Thread Thread { get; set; }
-        [Column("customer_id")]
-        public int CustomerId { get; set; }
-        public virtual Customer Customer { get; set; }
+        [Column("provider_id")]
+        public int ProviderId { get; set; }
+        public virtual Provider Provider { get; set; }
+
+        [ForeignKey("GroupId")]
+        public virtual List<DisciplineGroup> DisciplineGroups { get; set; }
 
         [ForeignKey("GroupId")]
         public virtual List<OrderGroup> OrderGroups { get; set; }

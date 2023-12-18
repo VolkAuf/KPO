@@ -14,8 +14,9 @@
     </Window.Resources>
     
     <DockPanel LastChildFill="True" Style="{StaticResource MainMenu}">
-        <Grid DockPanel.Dock="Top" Height="53">
+        <Grid DockPanel.Dock="Top" Height="63">
             <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -26,43 +27,32 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Margin="5" Content="Студенты" Style="{StaticResource button}" Click="ButtonStudent_Click"/>
-            <Button Grid.Column="1" Margin="5" Content="Приказы" Style="{StaticResource button}" Click="ButtonOrder_Click"/>
+            <Button Grid.Row="0" Grid.Column="1" Margin="5" Content="Приказы" Style="{StaticResource button}" Click="ButtonOrder_Click"/>
+            <Button Grid.Column="1" Grid.Row="1" Margin="5" Style="{StaticResource button}" Click="ButtonLink_Click">
+                <Button.Content>
+                    <TextBlock Text="Привязка групп" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                </Button.Content>
+            </Button>
             <Button Grid.Column="2" Margin="5" Style="{StaticResource button}" Click="ButtonStatus_Click">
                 <Button.Content>
                     <TextBlock Text="Статусы студентов" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="3" Margin="5" Style="{StaticResource button}" Click="ButtonReportDiscipline_Click">
+            <Button Grid.Column="3" Grid.Row="0" Margin="5" Content="Дисциплины" Style="{StaticResource button}" Click="ButtonExit_Click"/>
+            <Button Grid.Column="3" Grid.Row="1" Margin="5" Style="{StaticResource button}" Click="ButtonReportDiscipline_Click">
                 <Button.Content>
                     <TextBlock Text="Список дисциплин" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="4" Margin="5" Style="{StaticResource button}" Click="ButtonLink_Click">
-                <Button.Content>
-                    <TextBlock Text="Привязка групп" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
-                </Button.Content>
-            </Button>
+            <Button Grid.Column="4" Margin="5" Content="Потоки" Style="{StaticResource button}" Click="ButtonReport_Click"/>
             <Button Grid.Column="5" Margin="5" Content="Отчет" Style="{StaticResource button}" Click="ButtonReport_Click"/>
-            <Button Grid.Column="6" Margin="5" Content="Диаграмма" Style="{StaticResource button}" Click="ButtonDiag_Click"/>
-            <Button Grid.Column="7" Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>
-            <ComboBox Grid.Column="8" Margin="5" Style="{StaticResource comboBox}" >
-                <ComboBoxItem>
-                    <Button Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <Button Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <Button Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>
-                </ComboBoxItem>
-            </ComboBox>
+            <Button Grid.Column="5" Grid.Row="1" Margin="5" Content="Диаграмма" Style="{StaticResource button}" Click="ButtonDiag_Click"/>
+            <Button Grid.Column="6" Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>
         </Grid>
-        <Canvas HorizontalAlignment="Center" Width="650" Height="300" VerticalAlignment="Center">
-            <Image  x:Name="logoDark" Source="C:\Users\Rafael\source\repos\PIbd-22_Volkov_R.R._TP_Course\AllDeductedView\AllDeductedView\Images\logo.bmp" Height="300" Width="650" />
+        <Canvas HorizontalAlignment="Center" Width="850" Height="450" VerticalAlignment="Center">
+            <Image  x:Name="logoDark" Source="Images\logo.bmp" Height="450" Width="850" />
         </Canvas>
     </DockPanel>
 </Window>

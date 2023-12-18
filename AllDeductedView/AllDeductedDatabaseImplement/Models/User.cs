@@ -27,7 +27,5 @@ namespace AllDeductedDatabaseImplement.Models
         public string Mail { get; set; }
 
         public virtual Provider Provider { get; set; }
-
-        public virtual Customer Customer { get; set; }
     }
 }

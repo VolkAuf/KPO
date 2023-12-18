@@ -34,7 +34,6 @@ namespace AllDeductedBusinessLogic.BusinessLogics
             }
             else
             {
-
                 _orderStorage.Insert(new OrderBindingModel
                 {
                     Students = model.Students,

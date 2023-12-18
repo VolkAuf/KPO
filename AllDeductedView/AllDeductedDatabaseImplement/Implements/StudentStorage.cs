@@ -34,50 +34,59 @@ namespace AllDeductedDatabaseImplement.Implements
             {
                 return null;
             }
+
             using (var context = new Context())
             {
                 Student student = context.Students
-                .FirstOrDefault(rec => rec.Id == model.Id);
-                return student != null ?
-                new StudentViewModel
-                {
-                    Id = student.Id,
-                    FirstName = student.FirstName,
-                    LastName = student.LastName,
-                    Patronymic = student.Patronymic
-                } :
-                null;
+                    .FirstOrDefault(rec => rec.Id == model.Id);
+                return student != null
+                    ? new StudentViewModel
+                    {
+                        Id = student.Id,
+                        FirstName = student.FirstName,
+                        LastName = student.LastName,
+                        Patronymic = student.Patronymic
+                    }
+                    : null;
             }
         }
 
         public List<StudentViewModel> GetFilteredList(StudentBindingModel model)
         {
             if (model == null)
-            {
                 return null;
-            }
+
             using (var context = new Context())
             {
                 return context.Students
-                .Include(rec => rec.Thread)
-                .ThenInclude(rec => rec.Disciplines)
-                .Include(rec=> rec.Provider)
-                .Where(rec => (rec.ProviderId == model.ProviderId))
-                .ToList()
-                .Select(rec => new StudentViewModel
-                {
-                    Id = rec.Id,
-                    FirstName = rec.FirstName,
-                    LastName = rec.LastName,
-                    Patronymic = rec.Patronymic,
-                    Disciplines = rec.Thread?.Disciplines.Select(rec => new DisciplineViewModel
-                    { 
+                    .Include(rec => rec.OrderStudents)
+                    .ThenInclude(rec => rec.Order)
+                    .ThenInclude(rec => rec.OrderGroups)
+                    .ThenInclude(rec => rec.Group)
+                    .ThenInclude(rec => rec.DisciplineGroups)
+                    .ThenInclude(rec => rec.Discipline)
+                    .Include(rec => rec.Provider)
+                    .Where(rec => rec.ProviderId == model.ProviderId)
+                    .Select(rec => new StudentViewModel
+                    {
                         Id = rec.Id,
-                        Name = rec.Name,
-                        HoursCount = rec.HoursCount,
-                    }).ToList(),
-                })
-                .ToList();
+                        FirstName = rec.FirstName,
+                        LastName = rec.LastName,
+                        Patronymic = rec.Patronymic,
+                        Disciplines = rec.OrderStudents
+                            .Select(recOS => recOS.Order)
+                            .SelectMany(recO => recO.OrderGroups)
+                            .Select(recOG => recOG.Group)
+                            .SelectMany(recG => recG.DisciplineGroups)
+                            .Select(recDG => recDG.Discipline)
+                            .Select(recD => new DisciplineViewModel
+                            {
+                                Id = recD.Id,
+                                Name = recD.Name,
+                                HoursCount = recD.HoursCount,
+                            }).ToList(),
+                    })
+                    .ToList();
             }
         }
 
@@ -86,22 +95,32 @@ namespace AllDeductedDatabaseImplement.Implements
             using (var context = new Context())
             {
                 return context.Students
-                .Include(rec => rec.Thread)
-                .ThenInclude(rec => rec.Disciplines)
-                .Select(rec => new StudentViewModel
-                {
-                    Id = rec.Id,
-                    FirstName = rec.FirstName,
-                    LastName = rec.LastName,
-                    Patronymic = rec.Patronymic,
-                    Disciplines = rec.Thread.Disciplines.Select(rec => new DisciplineViewModel
+                    .Include(rec => rec.OrderStudents)
+                    .ThenInclude(rec => rec.Order)
+                    .ThenInclude(rec => rec.OrderGroups)
+                    .ThenInclude(rec => rec.Group)
+                    .ThenInclude(rec => rec.DisciplineGroups)
+                    .ThenInclude(rec => rec.Discipline)
+                    .Select(rec => new StudentViewModel
                     {
                         Id = rec.Id,
-                        Name = rec.Name,
-                        HoursCount = rec.HoursCount,
-                    }).ToList(),
-                })
-                .ToList();
+                        FirstName = rec.FirstName,
+                        LastName = rec.LastName,
+                        Patronymic = rec.Patronymic,
+                        Disciplines = rec.OrderStudents
+                            .Select(recOS => recOS.Order)
+                            .SelectMany(recO => recO.OrderGroups)
+                            .Select(recOG => recOG.Group)
+                            .SelectMany(recG => recG.DisciplineGroups)
+                            .Select(recDG => recDG.Discipline)
+                            .Select(recD => new DisciplineViewModel
+                            {
+                                Id = recD.Id,
+                                Name = recD.Name,
+                                HoursCount = recD.HoursCount,
+                            }).ToList(),
+                    })
+                    .ToList();
             }
         }
 
@@ -123,6 +142,7 @@ namespace AllDeductedDatabaseImplement.Implements
                 {
                     throw new Exception("Элемент не найден");
                 }
+
                 CreateModel(model, element);
                 context.SaveChanges();
             }

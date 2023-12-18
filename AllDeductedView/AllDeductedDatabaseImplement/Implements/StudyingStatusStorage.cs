@@ -70,7 +70,6 @@ namespace AllDeductedDatabaseImplement.Implements
                 return context.StudyingStatuses
                 .Include(rec => rec.Provider)
                 .Include(rec => rec.Student)
-                .ThenInclude(rec => rec.Thread)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.EnrollmentDate.Date == model.DateCreate.Date) 
                 || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.EnrollmentDate.Date >= model.DateFrom.Value.Date 
                 && rec.EnrollmentDate.Date <= model.DateTo.Value.Date) || (rec.ProviderId == model.ProviderId))
@@ -83,7 +82,6 @@ namespace AllDeductedDatabaseImplement.Implements
                     StudyingForm = rec.StudyingForm,
                     StudyingBase = rec.StudyingBase,
                     Course = rec.Course,
-                    ThreadName = rec.Student.Thread?.Name
                 })
                 .ToList();
             }
@@ -117,16 +115,16 @@ namespace AllDeductedDatabaseImplement.Implements
                     {
                         StudyingStatus status = new StudyingStatus
                         {
-                        EnrollmentDate = DateTime.Now,
-                        ProviderId = model.ProviderId,
-                        StudentId = model.StudentId,
-                        StudyingBase = model.StudyingBase,
-                        StudyingForm = model.StudyingForm,
-                        Course = model.Course
+                            EnrollmentDate = DateTime.Now,
+                            ProviderId = model.ProviderId,
+                            StudentId = model.StudentId,
+                            StudyingBase = model.StudyingBase,
+                            StudyingForm = model.StudyingForm,
+                            Course = model.Course
                         };
-                    context.StudyingStatuses.Add(status);
-                    context.SaveChanges();
-                    CreateModel(model, status, context);
+                        context.StudyingStatuses.Add(status);
+                        context.SaveChanges();
+                        CreateModel(model, status, context);
                         context.SaveChanges();
                         transaction.Commit();
                     }

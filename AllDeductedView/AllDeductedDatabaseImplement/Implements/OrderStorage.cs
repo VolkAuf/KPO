@@ -159,45 +159,49 @@ namespace AllDeductedDatabaseImplement.Implements
         public Order CreateModel(OrderBindingModel model, Order order, Context context)
         {
             order.ProviderId = model.ProviderId;
-            if(order.Id == 0)
+            if (order.Id == 0)
             {
                 context.Orders.Add(order);
                 context.SaveChanges();
             }
+
             if (model.Id.HasValue)
             {
-                    var orderStudent = context.OrderStudents.Where(rec => rec.OrderId == model.Id.Value).ToList();
-                    // удалили те, которых нет в модели
-                    context.OrderStudents.RemoveRange(orderStudent.Where(recOS => !model.Students.ContainsKey(recOS.StudentId)).ToList());
-                    context.SaveChanges();
+                var orderStudent = context.OrderStudents.Where(rec => rec.OrderId == model.Id.Value).ToList();
+                // удалили те, которых нет в модели
+                context.OrderStudents.RemoveRange(orderStudent
+                    .Where(recOS => !model.Students.ContainsKey(recOS.StudentId)).ToList());
+                context.SaveChanges();
 
-                    foreach (var os in orderStudent)
+                foreach (var os in orderStudent)
+                {
+                    if (model.Students.ContainsKey(os.StudentId))
                     {
-                        if (model.Students.ContainsKey(os.StudentId))
-                        {
-                            model.Students.Remove(os.StudentId);
-                        }
+                        model.Students.Remove(os.StudentId);
                     }
-                    context.SaveChanges();
-                     var orderGroups = context.OrderGroups.Where(rec => rec.OrderId == model.Id.Value).ToList();
-                    // удалили те, которых нет в модели
-                    context.OrderGroups.RemoveRange(orderGroups.Where(recOS => !model.Groups.ContainsKey(recOS.GroupId)).ToList());
-                    context.SaveChanges();
+                }
 
-                    foreach (var og in orderGroups)
+                context.SaveChanges();
+                var orderGroups = context.OrderGroups.Where(rec => rec.OrderId == model.Id.Value).ToList();
+                // удалили те, которых нет в модели
+                context.OrderGroups.RemoveRange(orderGroups.Where(recOS => !model.Groups.ContainsKey(recOS.GroupId))
+                    .ToList());
+                context.SaveChanges();
+
+                foreach (var og in orderGroups)
+                {
+                    if (model.Groups.ContainsKey(og.GroupId))
                     {
-                        if (model.Groups.ContainsKey(og.GroupId))
-                        {
-                            model.Groups.Remove(og.GroupId);
-                        }
+                        model.Groups.Remove(og.GroupId);
                     }
-                    context.SaveChanges();
-                
+                }
 
-                
+                context.SaveChanges();
             }
+
             // добавили новые
-            if (model.Students != null) {
+            if (model.Students != null)
+            {
                 foreach (var student in model.Students)
                 {
                     context.OrderStudents.Add(new OrderStudent
@@ -221,7 +225,6 @@ namespace AllDeductedDatabaseImplement.Implements
                     context.SaveChanges();
                 }
             }
-           
 
             return order;
         }

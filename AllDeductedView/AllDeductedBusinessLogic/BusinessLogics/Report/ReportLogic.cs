@@ -6,7 +6,6 @@ using AllDeductedBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AllDeductedBusinessLogic.BusinessLogics
 {
@@ -14,13 +13,11 @@ namespace AllDeductedBusinessLogic.BusinessLogics
     {
         private IStudentStorage studentStorage;
         private IStudyingStatusStorage studyingStatusStorage;
-        private IThreadStorage threadStorage;
 
-        public ReportLogic(IStudentStorage studentStorage, IStudyingStatusStorage studyingStatusStorage, IThreadStorage threadStorage)
+        public ReportLogic(IStudentStorage studentStorage, IStudyingStatusStorage studyingStatusStorage)
         {
             this.studentStorage = studentStorage;
             this.studyingStatusStorage = studyingStatusStorage;
-            this.threadStorage = threadStorage;
         }
 
         public List<StudyingStatusViewModel> GetStatus(ReportBindingModel model)
@@ -37,9 +34,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
         {
             var records = new List<ReportDisciplineViewModel>();
             var students = studentStorage.GetFullList()
-                .Where(rec => model.Students
-                .Select(rec => rec.Id)
-                .Contains(rec.Id))
+                .Where(rec => model.Students.Select(recS => recS.Id).Contains(rec.Id))
                 .ToList();
             foreach (var student in students)
             {

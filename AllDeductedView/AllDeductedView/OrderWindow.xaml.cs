@@ -129,7 +129,7 @@ namespace AllDeductedView
             }
             try
             {
-                logic.CreateOrUpdateOrder(new OrderBindingModel
+                logic.CreateOrUpdate(new OrderBindingModel
                 {
                     Id = id,
                     ProviderId = App.SelectProvider.Id,

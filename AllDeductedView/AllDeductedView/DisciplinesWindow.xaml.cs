@@ -9,23 +9,23 @@ using Unity;
 namespace AllDeductedView
 {
     /// <summary>
-    /// Логика взаимодействия для GroupsWindow.xaml
+    /// Логика взаимодействия для StudentWindow.xaml
     /// </summary>
-    public partial class GroupsWindow : Window
+    public partial class DisciplinesWindow : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
-        private readonly GroupLogic logic;
+        private readonly DisciplineLogic logic;
         private readonly Logger logger;
 
-        public GroupsWindow(GroupLogic logic)
+        public DisciplinesWindow(DisciplineLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
             logger = LogManager.GetCurrentClassLogger();
         }
 
-        private void GroupsWindow_Loaded(object sender, RoutedEventArgs e)
+        private void DisciplinesWindow_Loaded(object sender, RoutedEventArgs e)
         {
             LoadData();
         }
@@ -33,13 +33,13 @@ namespace AllDeductedView
         {
             try
             {
-                var list = logic.Read(new GroupBindingModel
+                var list = logic.Read(new DisciplineBindingModel
                 {
                     ProviderId = App.SelectProvider.Id
                 });
                 if (list != null)
                 {
-                    dataGridGroups.ItemsSource = list;
+                    dataGridDisciplines.ItemsSource = list;
                 }
             }
             catch (Exception ex)
@@ -51,7 +51,7 @@ namespace AllDeductedView
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var form = Container.Resolve<GroupWindow>();
+            var form = Container.Resolve<StudentWindow>();
             if (form.ShowDialog() == true)
             {
                 LoadData();
@@ -60,10 +60,10 @@ namespace AllDeductedView
 
         private void ButtonUpd_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGridGroups.SelectedItems.Count == 1)
+            if (dataGridDisciplines.SelectedItems.Count == 1)
             {
-                var form = Container.Resolve<GroupWindow>();
-                int id = ((GroupViewModel)dataGridGroups.SelectedItems[0]).Id;
+                var form = Container.Resolve<DisciplineWindow>();
+                int id = ((DisciplineViewModel)dataGridDisciplines.SelectedItems[0]).Id;
                 form.Id = id;
                 if (form.ShowDialog() == true)
                 {
@@ -74,15 +74,15 @@ namespace AllDeductedView
 
         private void ButtonDel_Click(object sender, RoutedEventArgs e)
         {
-            if (dataGridGroups.SelectedItems.Count == 1)
+            if (dataGridDisciplines.SelectedItems.Count == 1)
             {
                 MessageBoxResult result = (MessageBoxResult)MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    int id = ((GroupViewModel)dataGridGroups.SelectedItems[0]).Id;
+                    int id = ((DisciplineViewModel)dataGridDisciplines.SelectedItems[0]).Id;
                     try
                     {
-                        logic.Delete(new GroupBindingModel { Id = id });
+                        logic.Delete(new DisciplineBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

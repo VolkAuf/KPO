@@ -9,9 +9,9 @@ using Unity;
 namespace AllDeductedView
 {
     /// <summary>
-    /// Логика взаимодействия для StudentWindow.xaml
+    /// Логика взаимодействия для DisciplineWindow.xaml
     /// </summary>
-    public partial class StudentWindow : Window
+    public partial class DisciplineWindow : Window
     {
         [Dependency]
         public IUnityContainer Container { get; set; }
@@ -23,55 +23,48 @@ namespace AllDeductedView
 
         private int? id;
 
-        private readonly StudentLogic logicS;
+        private readonly DisciplineLogic logic;
         private readonly Logger logger;
-        public StudentWindow(StudentLogic logicS)
+        public DisciplineWindow(DisciplineLogic logic)
         {
             InitializeComponent();
             logger = LogManager.GetCurrentClassLogger();
-            this.logicS = logicS;
+            this.logic = logic;
         }
-        private void StudentWindow_Load(object sender, RoutedEventArgs e)
+        private void DisciplineWindow_Load(object sender, RoutedEventArgs e)
         {
             if (id.HasValue)
             {
-                StudentViewModel student = logicS.Read(new StudentBindingModel
+                DisciplineViewModel discipline = logic.Read(new DisciplineBindingModel
                 {
                     Id = id,
                     ProviderId = App.SelectProvider.Id
                 })?[0];
 
-                textBoxFirstName.Text = student.FirstName;
-                textBoxLastName.Text = student.LastName;
-                textBoxPatronymic.Text = student.Patronymic;
+                textBoxName.Text = discipline.Name;
+                textBoxHoursCount.Text = discipline.HoursCount.ToString();
             }
         }
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e)
         {
-            if (string.IsNullOrEmpty(textBoxFirstName.Text))
+            if (string.IsNullOrEmpty(textBoxName.Text))
             {
-                MessageBox.Show("Заполните поле FirstName", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Заполните поле Name", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrEmpty(textBoxLastName.Text))
+            if (string.IsNullOrEmpty(textBoxHoursCount.Text))
             {
-                MessageBox.Show("Заполните поле LastName", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrEmpty(textBoxPatronymic.Text))
-            {
-                MessageBox.Show("Заполните поле Patronymic", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Заполните поле HoursCount", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
             {
-                logicS.CreateOrUpdate(new StudentBindingModel
+                logic.CreateOrUpdate(new DisciplineBindingModel
                 {
                     Id = id,
-                    FirstName = textBoxFirstName.Text.ToString(),
-                    LastName = textBoxLastName.Text.ToString(),
-                    Patronymic = textBoxPatronymic.Text.ToString(),
+                    Name = textBoxName.Text,
+                    HoursCount = Convert.ToInt32(textBoxHoursCount.Text),
                     ProviderId = App.SelectProvider.Id
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);

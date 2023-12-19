@@ -32,7 +32,6 @@ namespace AllDeductedView
         }
        
         private int? id;
-        
 
         private readonly StudyingStatusLogic logicSS;
         private readonly StudentLogic logicS;

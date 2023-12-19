@@ -147,6 +147,23 @@ namespace AllDeductedDatabaseImplement.Implements
                 }
 
                 context.SaveChanges();
+
+
+                var disciplineGroups = context.DisciplineGroups.Where(rec => rec.GroupId == model.Id.Value).ToList();
+                // удалили те, которых нет в модели
+                context.DisciplineGroups.RemoveRange(disciplineGroups.Where(recOS => !model.Discipline.ContainsKey(recOS.GroupId))
+                    .ToList());
+                context.SaveChanges();
+
+                foreach (var og in disciplineGroups)
+                {
+                    if (model.Discipline.ContainsKey(og.DisciplineId))
+                    {
+                        model.Discipline.Remove(og.DisciplineId);
+                    }
+                }
+
+                context.SaveChanges();
             }
 
             if(model.Order != null)
@@ -156,6 +173,19 @@ namespace AllDeductedDatabaseImplement.Implements
                     context.OrderGroups.Add(new OrderGroup
                     {
                         OrderId = order.Key,
+                        GroupId = group.Id
+                    });
+                    context.SaveChanges();
+                }
+            }
+
+            if(model.Discipline != null)
+            {
+                foreach (var discipline in model.Discipline)
+                {
+                    context.DisciplineGroups.Add(new DisciplineGroup()
+                    {
+                        DisciplineId = discipline.Key,
                         GroupId = group.Id
                     });
                     context.SaveChanges();

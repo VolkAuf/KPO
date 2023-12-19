@@ -26,5 +26,31 @@ namespace AllDeductedBusinessLogic.BusinessLogics
             }
             return _disciplineStorage.GetFilteredList(model);
         }
+        public void CreateOrUpdate(DisciplineBindingModel model)
+        {
+            if (model.Id.HasValue)
+            {
+                _disciplineStorage.Update(model);
+            }
+            else
+            {
+                _disciplineStorage.Insert(new DisciplineBindingModel
+                {
+                    Name = model.Name,
+                    HoursCount = model.HoursCount,
+                    ProviderId = model.ProviderId,
+                });
+            }
+        }
+
+        public void Delete(DisciplineBindingModel model)
+        {
+            DisciplineViewModel element = _disciplineStorage.GetElement(new DisciplineBindingModel { Id = model.Id });
+            if (element == null)
+            {
+                throw new Exception("Элемент не найден");
+            }
+            _disciplineStorage.Delete(model);
+        }
     }
 }

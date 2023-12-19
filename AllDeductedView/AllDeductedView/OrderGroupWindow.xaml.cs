@@ -34,13 +34,16 @@ namespace AllDeductedView
         {
             try
             {
-                var list = logic.Read( new OrderBindingModel
+                var list = logic.Read(new OrderBindingModel
                 {
                     ProviderId = App.SelectProvider.Id
                 });
                 comboBoxOrderGroup.ItemsSource = list;
                 comboBoxOrderGroup.SelectedItem = null;
-                var listG = logicG.Read(null);
+                var listG = logicG.Read(new GroupBindingModel
+                {
+                    ProviderId = App.SelectProvider.Id
+                });
                 listBoxGroup.ItemsSource = listG;
             }
             catch (Exception ex)
@@ -142,7 +145,7 @@ namespace AllDeductedView
             }
             try
             {
-                logic.CreateOrUpdateOrder(new OrderBindingModel
+                logic.CreateOrUpdate(new OrderBindingModel
                 {
                     Id = oView.Id,
                     DateCreate = oView.DateCreate,

@@ -26,7 +26,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
             }           
             return _orderStorage.GetFilteredList(model);
         }
-        public void CreateOrUpdateOrder(OrderBindingModel model)
+        public void CreateOrUpdate(OrderBindingModel model)
         {
             if (model.Id.HasValue)
             {

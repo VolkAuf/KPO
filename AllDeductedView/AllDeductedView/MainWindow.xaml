@@ -40,13 +40,13 @@
                     <TextBlock Text="Статусы студентов" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="3" Grid.Row="0" Margin="5" Content="Дисциплины" Style="{StaticResource button}" Click="ButtonExit_Click"/>
+            <Button Grid.Column="3" Grid.Row="0" Margin="5" Content="Дисциплины" Style="{StaticResource button}" Click="ButtonDiscipline_Click"/>
             <Button Grid.Column="3" Grid.Row="1" Margin="5" Style="{StaticResource button}" Click="ButtonReportDiscipline_Click">
                 <Button.Content>
                     <TextBlock Text="Список дисциплин" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
                 </Button.Content>
             </Button>
-            <Button Grid.Column="4" Margin="5" Content="Потоки" Style="{StaticResource button}" Click="ButtonReport_Click"/>
+            <Button Grid.Column="4" Margin="5" Content="Группы" Style="{StaticResource button}" Click="ButtonGroup_Click"/>
             <Button Grid.Column="5" Margin="5" Content="Отчет" Style="{StaticResource button}" Click="ButtonReport_Click"/>
             <Button Grid.Column="5" Grid.Row="1" Margin="5" Content="Диаграмма" Style="{StaticResource button}" Click="ButtonDiag_Click"/>
             <Button Grid.Column="6" Margin="5" Content="Выход" Style="{StaticResource button}" Click="ButtonExit_Click"/>

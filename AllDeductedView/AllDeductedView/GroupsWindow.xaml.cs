@@ -27,7 +27,7 @@ namespace AllDeductedView
 
         private void GroupsWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadData();
+             LoadData();
         }
         private void LoadData()
         {

@@ -29,7 +29,8 @@ namespace AllDeductedDatabaseImplement.Implements
                 return context.Disciplines
                     .Include(rec => rec.Provider)
                     .ThenInclude(rec => rec.User)
-                    .Include(rec => rec.Group)
+                    .Include(rec => rec.DisciplineGroup)
+                    .ThenInclude(rec => rec.Group)
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -48,8 +49,9 @@ namespace AllDeductedDatabaseImplement.Implements
                 return context.Disciplines
                     .Include(rec => rec.Provider)
                     .ThenInclude(rec => rec.User)
-                    .Include(rec => rec.Group)
-                    .Where(rec => rec.Name.Contains(model.Name))
+                    .Include(rec => rec.DisciplineGroup)
+                    .ThenInclude(rec => rec.Group)
+                    .Where(rec => (rec.ProviderId == model.ProviderId))
                     .Select(CreateViewModel)
                     .ToList();
             }
@@ -67,7 +69,8 @@ namespace AllDeductedDatabaseImplement.Implements
                 var discipline = context.Disciplines
                     .Include(rec => rec.Provider)
                     .ThenInclude(rec => rec.User)
-                    .Include(rec => rec.Group)
+                    .Include(rec => rec.DisciplineGroup)
+                    .ThenInclude(rec => rec.Group)
                     .FirstOrDefault(rec => rec.Name == model.Name ||
                     rec.Id == model.Id);
 

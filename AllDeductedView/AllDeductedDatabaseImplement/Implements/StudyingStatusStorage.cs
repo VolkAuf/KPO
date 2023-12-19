@@ -70,6 +70,10 @@ namespace AllDeductedDatabaseImplement.Implements
                 return context.StudyingStatuses
                 .Include(rec => rec.Provider)
                 .Include(rec => rec.Student)
+                .ThenInclude(rec => rec.OrderStudents)
+                .ThenInclude(rec => rec.Order)
+                .ThenInclude(rec => rec.OrderGroups)
+                .ThenInclude(rec => rec.Group)
                 .Where(rec => (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.EnrollmentDate.Date == model.DateCreate.Date) 
                 || (model.DateFrom.HasValue && model.DateTo.HasValue && rec.EnrollmentDate.Date >= model.DateFrom.Value.Date 
                 && rec.EnrollmentDate.Date <= model.DateTo.Value.Date) || (rec.ProviderId == model.ProviderId))
@@ -82,6 +86,11 @@ namespace AllDeductedDatabaseImplement.Implements
                     StudyingForm = rec.StudyingForm,
                     StudyingBase = rec.StudyingBase,
                     Course = rec.Course,
+                    GroupName = rec.Student.OrderStudents
+                        .Select(recOS => recOS.Order)
+                        .SelectMany(recO => recO.OrderGroups)
+                        .Select(recOG => recOG.Group)
+                        .LastOrDefault()?.Name
                 })
                 .ToList();
             }

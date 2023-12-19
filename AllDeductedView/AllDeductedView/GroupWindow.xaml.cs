@@ -20,7 +20,7 @@ namespace AllDeductedView
         private readonly GroupLogic logic;
         private readonly DisciplineLogic logicD;
         private Dictionary<int, string> linkDiscipline;
-        private Dictionary<int, string> linkOrders;
+        private List<int> linkOrders;
         private readonly Logger logger;
 
         public int Id
@@ -40,11 +40,19 @@ namespace AllDeductedView
 
         private void GroupWindow_Load(object sender, RoutedEventArgs e)
         {
-            if (!id.HasValue)
-                return;
-
             try
             {
+                LoadData();
+                
+                var listD = logicD.Read(new DisciplineBindingModel
+                {
+                    ProviderId = App.SelectProvider.Id
+                });
+                listBoxDiscipline.ItemsSource = listD;
+
+                if (!id.HasValue)
+                    return;
+
                 var element = logic.Read(new GroupBindingModel
                 {
                     Id = id.Value,
@@ -55,12 +63,6 @@ namespace AllDeductedView
                     textBoxCurator.Text = element.CuratorName;
                     textBoxName.Text = element.Name;
                 }
-
-                var listD = logicD.Read(new DisciplineBindingModel
-                {
-                    ProviderId = App.SelectProvider.Id
-                });
-                listBoxDiscipline.ItemsSource = listD;
             }
             catch (Exception ex)
             {
@@ -95,7 +97,7 @@ namespace AllDeductedView
                 else
                 {
                     linkDiscipline = new Dictionary<int, string>();
-                    linkOrders = new Dictionary<int, string>();
+                    linkOrders = new List<int>();
                 }
 
                 ReloadList();
@@ -112,7 +114,7 @@ namespace AllDeductedView
             if (!linkDiscipline.ContainsKey((int)listBoxDiscipline.SelectedValue))
             {
                 linkDiscipline.Add((int)listBoxDiscipline.SelectedValue,
-                    ((GroupViewModel)listBoxDiscipline.SelectedItem).Name);
+                    ((DisciplineViewModel)listBoxDiscipline.SelectedItem).Name);
                 ReloadList();
             }
         }
@@ -154,7 +156,7 @@ namespace AllDeductedView
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK,
                     MessageBoxImage.Information);
-                LoadData();
+                Close();
             }
             catch (Exception ex)
             {

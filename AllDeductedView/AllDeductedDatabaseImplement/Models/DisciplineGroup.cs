@@ -2,7 +2,7 @@
 
 namespace AllDeductedDatabaseImplement.Models
 {
-    [Table("order_group")]
+    [Table("discipline_group")]
     public class DisciplineGroup
     {
         [Column("id")]

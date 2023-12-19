@@ -41,7 +41,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
                 CreateRow(new PdfRowParameters
                 {
                     Table = table,
-                    Texts = new List<string> { status.ThreadName, status.StudentId.ToString(), status.Course.ToString(),
+                    Texts = new List<string> { status.GroupName, status.StudentId.ToString(), status.Course.ToString(),
                         Enum.GetName( typeof(StudyingBase),status.StudyingBase), Enum.GetName( typeof(StudyingForm),status.StudyingForm),
                         status.DateCreate.ToShortDateString() },
                     Style = "Normal",

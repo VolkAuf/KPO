@@ -36,7 +36,7 @@
         <DataGrid x:Name="dataGridStudyingStatuses" Grid.Row="3" AutoGenerateColumns="False" CanUserAddRows="false">
             <DataGrid.Columns>
                 <DataGridTextColumn Visibility="Hidden" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Поток" Binding="{Binding ThreadName}" Width="0.4*"/>
+                <DataGridTextColumn Header="Группа" Binding="{Binding GroupName}" Width="0.4*"/>
                 <DataGridTextColumn Header="Зачетка" Binding="{Binding StudentId}" Width="0.4*"/>
                 <DataGridTextColumn Header="Форма обучения" Binding="{Binding StudyingForm}" Width="0.3*"/>
                 <DataGridTextColumn Header="Основа обучения" Binding="{Binding StudyingBase}" Width="0.3*"/>

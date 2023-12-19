@@ -51,7 +51,7 @@ namespace AllDeductedView
 
         private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
-            var form = Container.Resolve<StudentWindow>();
+            var form = Container.Resolve<DisciplineWindow>();
             if (form.ShowDialog() == true)
             {
                 LoadData();

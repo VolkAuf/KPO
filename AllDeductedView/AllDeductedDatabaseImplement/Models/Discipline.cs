@@ -17,11 +17,10 @@ namespace AllDeductedDatabaseImplement.Models
         [Column("hours_count")]
         [Required]
         public int HoursCount { get; set; }
-        [Column("group_id")]
-        public int GroupId { get; set; }
-        public virtual Group Group { get; set; }
         [Column("provider_id")]
         public int ProviderId { get; set; }
         public virtual Provider Provider { get; set; }
+        [ForeignKey("DisciplineId")]
+        public virtual List<DisciplineGroup> DisciplineGroup { get; set; }
     }
 }

@@ -13,7 +13,7 @@ namespace AllDeductedBusinessLogic.ViewModels
         [DisplayName("Имя куратора")]
         public string CuratorName { get; set; }
 
-        public Dictionary<int,string> Orders { get; set; }
+        public List<int> Orders { get; set; }
 
         public Dictionary<int, string> Discipline { get; set; }
     }

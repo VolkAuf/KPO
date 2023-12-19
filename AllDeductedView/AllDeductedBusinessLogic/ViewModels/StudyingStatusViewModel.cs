@@ -19,6 +19,6 @@ namespace AllDeductedBusinessLogic.ViewModels
         public StudyingBase StudyingBase { get; set; }
         [DisplayName("Курс")]
         public int Course { get; set; }
-        public string ThreadName { get; set; }
+        public string GroupName { get; set; }
     }
 }

@@ -3,15 +3,17 @@ using System;
 using AllDeductedDatabaseImplement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace AllDeductedDatabaseImplement.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20231219163857_newEntity")]
+    partial class newEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,6 +29,10 @@ namespace AllDeductedDatabaseImplement.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<int>("GroupId")
+                        .HasColumnType("integer")
+                        .HasColumnName("group_id");
+
                     b.Property<int>("HoursCount")
                         .HasColumnType("integer")
                         .HasColumnName("hours_count");
@@ -41,6 +47,8 @@ namespace AllDeductedDatabaseImplement.Migrations
                         .HasColumnName("provider_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GroupId");
 
                     b.HasIndex("ProviderId");
 
@@ -302,11 +310,19 @@ namespace AllDeductedDatabaseImplement.Migrations
 
             modelBuilder.Entity("AllDeductedDatabaseImplement.Models.Discipline", b =>
                 {
+                    b.HasOne("AllDeductedDatabaseImplement.Models.Group", "Group")
+                        .WithMany()
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AllDeductedDatabaseImplement.Models.Provider", "Provider")
                         .WithMany("Disciplines")
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Group");
 
                     b.Navigation("Provider");
                 });
@@ -314,7 +330,7 @@ namespace AllDeductedDatabaseImplement.Migrations
             modelBuilder.Entity("AllDeductedDatabaseImplement.Models.DisciplineGroup", b =>
                 {
                     b.HasOne("AllDeductedDatabaseImplement.Models.Discipline", "Discipline")
-                        .WithMany("DisciplineGroup")
+                        .WithMany()
                         .HasForeignKey("DisciplineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -429,11 +445,6 @@ namespace AllDeductedDatabaseImplement.Migrations
                     b.Navigation("Provider");
 
                     b.Navigation("Student");
-                });
-
-            modelBuilder.Entity("AllDeductedDatabaseImplement.Models.Discipline", b =>
-                {
-                    b.Navigation("DisciplineGroup");
                 });
 
             modelBuilder.Entity("AllDeductedDatabaseImplement.Models.Group", b =>

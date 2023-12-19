@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:AllDeductedView"
         mc:Ignorable="d"
         Loaded="GroupWindow_Load"
-        Title="OrderGroupWindow" Height="450" Width="600">
+        Title="GroupWindow" Height="450" Width="600">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
             <StackPanel>

@@ -11,14 +11,11 @@ namespace AllDeductedDatabaseImplement.Models
     {
         [Column("id")]
         public int Id { get; set; }
-
         [Required]
         [Column("date_create")]
         public DateTime DateCreate { get; set; }
-
         [Column("provider_id")]
         public int ProviderId { get; set; }
-
         public virtual Provider Provider { get; set; }
 
         [ForeignKey("OrderId")]

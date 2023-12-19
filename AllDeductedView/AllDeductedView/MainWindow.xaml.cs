@@ -46,6 +46,18 @@ namespace AllDeductedView
             window.ShowDialog();
         }
 
+        private void ButtonDiscipline_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<DisciplinesWindow>();
+            window.ShowDialog();
+        }
+
+        private void ButtonGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<GroupsWindow>();
+            window.ShowDialog();
+        }
+
         private void ButtonLink_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<OrderGroupWindow>();

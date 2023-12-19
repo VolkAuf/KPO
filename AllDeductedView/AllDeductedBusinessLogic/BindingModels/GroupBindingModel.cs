@@ -12,7 +12,7 @@ namespace AllDeductedBusinessLogic.BindingModels
 
         public string CuratorName { get; set; }
 
-        public Dictionary<int, string> Order { get; set; }
+        public List<int> Order { get; set; }
 
         public Dictionary<int, string> Discipline { get; set; }
 

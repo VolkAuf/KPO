@@ -62,7 +62,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
 
                 threadCell = new Cell(1, 1)
                     .SetTextAlignment(TextAlignment.CENTER)
-                    .Add(new Paragraph(status.ThreadName)).SetFont(font);
+                    .Add(new Paragraph(status.GroupName)).SetFont(font);
 
                 StudentCell = new Cell(1, 1)
                     .SetTextAlignment(TextAlignment.CENTER)

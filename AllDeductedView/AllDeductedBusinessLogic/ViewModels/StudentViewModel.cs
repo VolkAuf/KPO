@@ -18,6 +18,21 @@ namespace AllDeductedBusinessLogic.ViewModels
 
         public List<DisciplineViewModel> Disciplines { get; set; }
 
-        //public List<StudyingStatusViewModel> Statuses { get; set; }
+        public override bool Equals(object obj)
+        {
+            if (!(obj is StudentViewModel studentViewModel))
+                return false;
+
+            if (LastName != studentViewModel.LastName)
+                return false;
+            if (FirstName != studentViewModel.FirstName)
+                return false;
+            if (Id != studentViewModel.Id)
+                return false;
+            if (Patronymic != studentViewModel.Patronymic)
+                return false;
+
+            return true;
+        }
     }
 }

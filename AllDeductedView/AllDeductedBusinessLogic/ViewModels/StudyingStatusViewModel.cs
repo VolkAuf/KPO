@@ -20,5 +20,26 @@ namespace AllDeductedBusinessLogic.ViewModels
         [DisplayName("Курс")]
         public int Course { get; set; }
         public string GroupName { get; set; }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is StudyingStatusViewModel studyingStatusViewModel))
+                return false;
+
+            if (StudentId != studyingStatusViewModel.StudentId)
+                return false;
+            if (StudyingForm != studyingStatusViewModel.StudyingForm)
+                return false;
+            if (StudyingBase != studyingStatusViewModel.StudyingBase)
+                return false;
+            if (Course != studyingStatusViewModel.Course)
+                return false;
+            if (GroupName != studyingStatusViewModel.GroupName)
+                return false;
+            if (DateCreate.Date != studyingStatusViewModel.DateCreate.Date)
+                return false;
+
+            return true;
+        }
     }
 }

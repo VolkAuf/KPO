@@ -16,5 +16,18 @@ namespace AllDeductedBusinessLogic.ViewModels
         public List<int> Orders { get; set; }
 
         public Dictionary<int, string> Discipline { get; set; }
+        
+        public override bool Equals(object obj)
+        {
+            if (!(obj is GroupViewModel groupViewModel))
+                return false;
+
+            if (Name != groupViewModel.Name)
+                return false;
+            if (CuratorName != groupViewModel.CuratorName)
+                return false;
+
+            return true;
+        }
     }
 }

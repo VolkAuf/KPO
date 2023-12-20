@@ -48,7 +48,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
                     ParagraphAlignment = ParagraphAlignment.Left
                 });
             }
-            PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
+            PdfDocumentRenderer renderer = new PdfDocumentRenderer()
             {
                 Document = document
             };

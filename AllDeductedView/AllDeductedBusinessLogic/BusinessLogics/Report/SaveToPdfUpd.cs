@@ -17,7 +17,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
             PdfWriter writer = new PdfWriter(info.FileName);
             PdfDocument pdf = new PdfDocument(writer);
             Document document = new Document(pdf);
-            PdfFont font = PdfFontFactory.CreateFont(@"C:\Users\Rafael\source\repos\PIbd-22_Volkov_R.R._TP_Course\AllDeductedView\AllDeductedView\Images\Roboto-Regular.ttf", "Identity-H", true);
+            PdfFont font = PdfFontFactory.CreateFont();// (@"C:\Users\Rafael\source\repos\PIbd-22_Volkov_R.R._TP_Course\AllDeductedView\AllDeductedView\Images\Roboto-Regular.ttf", "Identity-H", true);
 
             AddParagraphCenter(info.Title, document,font);
             AddParagraphCenter($"с {info.DateFrom.ToShortDateString()} по { info.DateTo.ToShortDateString()}",document,font);

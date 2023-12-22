@@ -79,7 +79,7 @@ namespace AllDeductedBusinessLogic.BusinessLogics
 
                 if (provider == null || !provider.Password.Equals(model.Password))
                 {
-                    throw new Exception("поставщик c такими данными не найден");
+                    throw new Exception("пользователь c такими данными не найден");
                 }
 
                 return true;

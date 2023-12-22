@@ -17,7 +17,7 @@ namespace AllDeductedView
         public IUnityContainer Container { get; set; }
         private readonly ProviderLogic logic;
         private readonly Logger logger;
-        private readonly int logPassLength = 50;
+        private readonly int logPassLength = 20;
         public RegistrationWindow(ProviderLogic logic)
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace AllDeductedView
             }
             if (textBoxPassword.Text.Length > logPassLength)
             {
-                MessageBox.Show("Ограничение на пароль в 50 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ограничение на пароль - 50 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (!Regex.IsMatch(textBoxMail.Text, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
@@ -59,7 +59,7 @@ namespace AllDeductedView
             }
             if (textBoxMail.Text.Length > logPassLength)
             {
-                MessageBox.Show("Ограничение на почту в 50 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Ограничение на почту - 50 символов", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try

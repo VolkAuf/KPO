@@ -73,7 +73,7 @@ namespace AllDeductedView
             catch(Exception ex)
             {
                 logger.Error("Ошибка входа в приложение : " + ex.Message);
-                MessageBox.Show("Неверные данные", "Ошибка", MessageBoxButton.OK,
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
                   MessageBoxImage.Error);
             }
         }
